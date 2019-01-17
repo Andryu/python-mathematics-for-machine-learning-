@@ -61,7 +61,6 @@ diff = 1
 count = 0
 
 # 学習を繰り返す
-
 error = E(train_z, train_y)
 while diff > 1e-2:
     tmp0 = theta0 - ETA * np.sum((f(train_z) - train_y))
@@ -70,6 +69,9 @@ while diff > 1e-2:
     # Parameter更新
     theta0 = tmp0
     theta1 = tmp1 
+
+    print('theta0: %s' % theta0)
+    print('theta1: %s' % theta1)
 
     # 全開の誤差との差分計算
     current_error = E(train_z, train_y)
@@ -85,4 +87,13 @@ while diff > 1e-2:
 x = np.linspace(-3, 3, 100)
 plt.plot(train_z, train_y, 'o')
 plt.plot(x, f(x))
+
+print('x: %s' % x)
+print('f(x): %s' % f(x))
 plt.show()
+
+
+#%% クリック数予測
+click = f(standardize(100))
+
+print('click数予測値: %s' % click)
