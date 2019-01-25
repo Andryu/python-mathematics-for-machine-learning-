@@ -93,3 +93,33 @@ x = np.arange(len(errors))
 
 plt.plot(x, errors)
 plt.show()
+
+
+# %% 5-2-12 確率的勾配降下法
+
+# パラメータをランダムに初期化
+theta = np.random.rand(3)
+
+# 平均２乗誤差の履歴
+errors = []
+
+# 誤差の差分
+diff = 1
+
+# 学習を繰り返す
+errors.append(MSE(X, train_y))
+while diff > 1e-2:
+    # 学習データをならべかえるためにランダムな順列を
+    p = np.random.permutation(X.shape[0])
+    # 学習データをランダムに取り出して確率勾配降下法でパラメータ更新
+    for x, y in zip(X[p,:], train_y[p]):
+        theta = theta - ETA * (f(x) - y) * x
+
+    # 前回の誤差との差分を計算
+    errors.append(MSE(X, train_y))
+    diff = errors[-2] - errors[-1]
+
+x = np.linspace(-3, 3, 100)
+plt.plot(train_z, train_y, 'o')
+plt.plot(x, f(to_matrix(x)))
+plt.show()
